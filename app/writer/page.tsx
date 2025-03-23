@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+
 import {
   Bold,
   Italic,
@@ -41,6 +42,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { jsPDF } from "jspdf"
 import html2canvas from "html2canvas"
+import dynamic from "next/dynamic"
 
 export default function WriterPage() {
   const [documentTitle, setDocumentTitle] = useState("Documento sem título")
@@ -49,7 +51,9 @@ export default function WriterPage() {
   // Adicionar novos estados para controlar as visualizações
   const [viewMode, setViewMode] = useState("normal") // normal, print, outline
   const [zoomLevel, setZoomLevel] = useState(100) // porcentagem de zoom
-
+  const SomeComponent = dynamic(() => import('some-library'), {
+    ssr: false, // Desabilita a renderização no lado do servidor
+  });
   // Font options
   const fonts = [
     { name: "Arial", value: "Arial, sans-serif" },
